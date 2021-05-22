@@ -1,11 +1,12 @@
 import random
+import math
 file = open('bitc.csv', 'w')
 ff = open('count.txt', 'r')
 count1 = ff.readlines()
 ff.close()
-count=[0,0,0,0,0,0]
+count = [0, 0, 0, 0, 0, 0]
 for i in range(len(count1)):
-    count[i]=int(count1[i])
+    count[i] = int(count1[i])
 file.write('t,n,e0,e1,e2,e3\n')
 # 数据的预读取和定义
 a, xx = 1, 1
@@ -97,7 +98,22 @@ for i in range(600):
 # 生成币价
 
     '''x = a * random.randint(80, 125) / 100'''  # 波动大增长多
-    x = a * random.randint(910, 1099) / 1000  # 波动小增长少
+    '''x = a * random.randint(910, 1099) / 1000'''  # 波动小增长少
+    '''if i & 1:#持续波动变化
+        x = a * 0.9
+    else:
+        x = a * 1.2'''
+    '''if i%6==0:#长周期波动变化
+        x=a*4/3
+    elif i%6==1:
+        x=a*5/4
+    elif i%6==3:
+        x=a*4/5
+    elif i%6==4:
+        x=a*3/4
+    else:
+        x=a'''
+    x=math.sin(i/2)+2 #sin型不稳波动
     file.write('{},{},{},{},{},{}\n'.format(i, a, e0, e1, e2, e3))
     xx = a
     a = x
